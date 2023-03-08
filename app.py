@@ -13,13 +13,17 @@ def home():
 
 @app.route('/dis',methods=['POST'])
 def dis():
-    data=request.form.get("data")        
+    input = request.json["input_array"]
+    inp=list(input.split(','))
+    #input_array = np.array(input_array).reshape(1, -1)
     l=[0]*92
-    for i in data:
-        l[i]=1
-    l=l.transpose() 
-    x=model.predict(l)
-    dis=['Fungal infection', 'Allergy', 'GERD', 'Chronic cholestasis',
+    for i in inp:
+        j=int(i)
+        l[j]=1
+    tst=[]
+    tst.append(l)
+    prediction = model.predict(tst)
+    dislist=['Fungal infection', 'Allergy', 'GERD', 'Chronic cholestasis',
        'Drug Reaction', 'Peptic ulcer diseae', 'AIDS', 'Diabetes ',
        'Gastroenteritis', 'Bronchial Asthma', 'Hypertension ', 'Migraine',
        'Cervical spondylosis', 'Paralysis (brain hemorrhage)', 'Jaundice',
@@ -31,8 +35,9 @@ def dis():
        'Osteoarthristis', 'Arthritis',
        '(vertigo) Paroymsal  Positional Vertigo', 'Acne',
        'Urinary tract infection', 'Psoriasis', 'Impetigo']
-    return dis[x-1]
-    
+    pred=dislist[prediction[0]]
+    return pred
+    #return jsonify({"prediction": pred})
 
 
 if __name__=='__main__':
