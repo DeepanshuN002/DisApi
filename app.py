@@ -1,10 +1,13 @@
 from flask import Flask,render_template,redirect,url_for,request,jsonify
+from flask_cors import CORS, cross_origin
 import json
 import numpy as np
 import pandas as pd
 import requests
 import pickle
 app=Flask(__name__)
+
+CORS(app)
 
 model=pickle.load(open('DiseaseModel.pkl','rb'))
 @app.route('/')
