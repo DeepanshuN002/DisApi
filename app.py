@@ -17,7 +17,8 @@ def dis():
     inp=list(input.split(','))
     #input_array = np.array(input_array).reshape(1, -1)
     l=[0]*92
-    for i in inp:
+    for k in range(len(inp)-1):
+        i=inp[k]
         j=int(i)
         l[j]=1
     tst=[]
